@@ -1,5 +1,7 @@
 # TaskTree 🌳
 
+> **Try it now**: [tasktree.vercel.app](https://tasktree.vercel.app)
+
 ![TaskTree Preview](demo/mockup.png)
 
 TaskTree is a powerful task management application that helps you organize tasks in hierarchical structures. With its innovative dual-view system and rich feature set, TaskTree provides an intuitive way to manage complex task relationships and workflows.
@@ -53,8 +55,8 @@ TaskTree is a powerful task management application that helps you organize tasks
 
 1. Clone the repository
 ```bash
-git clone [repository-url]
-cd tasktree
+git clone https://github.com/erfangolpour/TaskTree
+cd TaskTree
 ```
 
 2. Install dependencies
