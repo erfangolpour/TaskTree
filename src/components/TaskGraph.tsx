@@ -137,7 +137,7 @@ const TaskGraphInner: React.FC<TaskGraphProps> = ({ tasks, isDarkMode }) => {
 				const processNode = (taskId: string, level: number, parentY?: number) => {
 					if (processed.has(taskId)) return;
 
-					const task = taskMap.get(taskId)!;
+					// const task = taskMap.get(taskId)!;
 					const children = filteredTasks.filter((t) => t.parentIds.includes(taskId));
 
 					let y = parentY !== undefined ? parentY : currentY;
