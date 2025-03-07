@@ -70,16 +70,16 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, allTasks, level = 0 })
     return Math.round((completedTasks / childTasks.length) * 100);
   }, [childTasks]);
 
-  // const handleTaskCompletion = async (checked: boolean) => {
-  //   const chains = await toggleTaskCompletion(task.id);
+  const handleTaskCompletion = async () => {
+    const chains = await toggleTaskCompletion(task.id);
     
-  //   if (chains.length > 0) {
-  //     setParentChains(chains);
-  //     setCurrentChainIndex(0);
-  //     setCurrentParentIndex(0);
-  //     setShowCompletionDialog(true);
-  //   }
-  // };
+    if (chains.length > 0) {
+      setParentChains(chains);
+      setCurrentChainIndex(0);
+      setCurrentParentIndex(0);
+      setShowCompletionDialog(true);
+    }
+  };
 
   const handleConfirmParentCompletion = async () => {
     const currentChain = parentChains[currentChainIndex];
@@ -167,7 +167,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, allTasks, level = 0 })
               )}
               <Checkbox
                 checked={task.completed}
-                // onCheckedChange={handleTaskCompletion}
+                onCheckedChange={handleTaskCompletion}
                 className="border-gray-300 dark:border-gray-500"
               />
             </div>
