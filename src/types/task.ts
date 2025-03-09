@@ -6,10 +6,10 @@ export interface Task {
   title: string;
   description?: string;
   completed: boolean;
-  priority: Priority;
-  dueDate?: Date;
+  priority: Priority | null;
+  startDate?: Date;
+  endDate?: Date;
   tags: string[];
-  notes?: string;
   parentIds: string[];
   createdAt: Date;
   updatedAt: Date;

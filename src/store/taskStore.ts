@@ -33,7 +33,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
 
       const { data: tasks, error } = await supabase
         .from('tasks')
-        .select('id, title, description, completed, priority, due_date, tags, notes, parent_ids, user_id, created_at, updated_at')
+        .select('id, title, description, completed, priority, start_date, end_date, tags, parent_ids, user_id, created_at, updated_at')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -45,9 +45,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
           description: task.description,
           completed: task.completed,
           priority: task.priority,
-          dueDate: task.due_date ? new Date(task.due_date) : undefined,
+          startDate: task.start_date ? new Date(task.start_date) : undefined,
+          endDate: task.end_date ? new Date(task.end_date) : undefined,
           tags: task.tags,
-          notes: task.notes,
           parentIds: task.parent_ids || [],
           createdAt: new Date(task.created_at),
           updatedAt: new Date(task.updated_at),
@@ -73,13 +73,13 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
           description: taskData.description,
           completed: taskData.completed,
           priority: taskData.priority,
-          due_date: taskData.dueDate?.toISOString(),
+          start_date: taskData.startDate?.toISOString(),
+          end_date: taskData.endDate?.toISOString(),
           tags: taskData.tags,
-          notes: taskData.notes,
           parent_ids: taskData.parentIds,
           user_id: session.session.user.id,
         }])
-        .select('id, title, description, completed, priority, due_date, tags, notes, parent_ids, user_id, created_at, updated_at')
+        .select('id, title, description, completed, priority, start_date, end_date, tags, parent_ids, user_id, created_at, updated_at')
         .single();
 
       if (error) throw error;
@@ -90,9 +90,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
         description: data.description,
         completed: data.completed,
         priority: data.priority,
-        dueDate: data.due_date ? new Date(data.due_date) : undefined,
+        startDate: data.start_date ? new Date(data.start_date) : undefined,
+        endDate: data.end_date ? new Date(data.end_date) : undefined,
         tags: data.tags,
-        notes: data.notes,
         parentIds: data.parent_ids || [],
         createdAt: new Date(data.created_at),
         updatedAt: new Date(data.updated_at),
@@ -111,9 +111,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
         description: updates.description,
         completed: updates.completed,
         priority: updates.priority,
-        due_date: updates.dueDate?.toISOString(),
+        start_date: updates.startDate?.toISOString(),
+        end_date: updates.endDate?.toISOString(),
         tags: updates.tags,
-        notes: updates.notes,
         parent_ids: updates.parentIds,
         updated_at: new Date().toISOString(),
       };
@@ -129,7 +129,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
         .from('tasks')
         .update(updateData)
         .eq('id', taskId)
-        .select('id, title, description, completed, priority, due_date, tags, notes, parent_ids, user_id, created_at, updated_at')
+        .select('id, title, description, completed, priority, start_date, end_date, tags, parent_ids, user_id, created_at, updated_at')
         .single();
 
       if (error) throw error;
@@ -143,9 +143,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
                 description: data.description,
                 completed: data.completed,
                 priority: data.priority,
-                dueDate: data.due_date ? new Date(data.due_date) : undefined,
+                startDate: data.start_date ? new Date(data.start_date) : undefined,
+                endDate: data.end_date ? new Date(data.end_date) : undefined,
                 tags: data.tags,
-                notes: data.notes,
                 parentIds: data.parent_ids || [],
                 createdAt: new Date(data.created_at),
                 updatedAt: new Date(data.updated_at),
@@ -220,7 +220,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
         .from('tasks')
         .update({ completed: !task.completed })
         .eq('id', taskId)
-        .select('id, title, description, completed, priority, due_date, tags, notes, parent_ids, user_id, created_at, updated_at')
+        .select('id, title, description, completed, priority, start_date, end_date, tags, parent_ids, user_id, created_at, updated_at')
         .single();
 
       if (error) throw error;
@@ -235,9 +235,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
                 description: data.description,
                 completed: data.completed,
                 priority: data.priority,
-                dueDate: data.due_date ? new Date(data.due_date) : undefined,
+                startDate: data.start_date ? new Date(data.start_date) : undefined,
+                endDate: data.end_date ? new Date(data.end_date) : undefined,
                 tags: data.tags,
-                notes: data.notes,
                 parentIds: data.parent_ids || [],
                 createdAt: new Date(data.created_at),
                 updatedAt: new Date(data.updated_at),

@@ -186,7 +186,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, allTasks, level = 0 })
           </div>
           
           <div className="flex items-center space-x-2 flex-shrink-0">
-            <span className={`px-2 py-1 rounded-full text-xs ${priorityColors[task.priority]}`}>
+            <span className={`px-2 py-1 rounded-full text-xs ${priorityColors[task.priority || 'medium']}`}>
               {task.priority}
             </span>
             <Button 
@@ -227,10 +227,10 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, allTasks, level = 0 })
         )}
         
         <div className="mt-2 flex flex-wrap gap-2 text-sm text-gray-500 dark:text-gray-400">
-          {task.dueDate && (
+          {task.endDate && (
             <div className="flex items-center">
               <Calendar className="h-4 w-4 mr-1 flex-shrink-0" />
-              <span>{formatDate(task.dueDate)}</span>
+              <span>{formatDate(task.endDate)}</span>
             </div>
           )}
           {task.tags.length > 0 && (

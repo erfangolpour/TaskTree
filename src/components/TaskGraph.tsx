@@ -91,11 +91,11 @@ const TaskGraphInner: React.FC<TaskGraphProps> = ({ tasks, isDarkMode }) => {
 					case "priority":
 						return (
 							direction *
-							(["high", "medium", "low"].indexOf(a.priority) -
-								["high", "medium", "low"].indexOf(b.priority))
+							(["high", "medium", "low"].indexOf(a.priority || "medium") -
+								["high", "medium", "low"].indexOf(b.priority || "medium"))
 						);
 					case "dueDate":
-						return direction * ((a.dueDate?.getTime() || 0) - (b.dueDate?.getTime() || 0));
+						return direction * ((a.endDate?.getTime() || 0) - (b.endDate?.getTime() || 0));
 					case "completed":
 						return direction * (a.completed === b.completed ? 0 : a.completed ? 1 : -1);
 					default:
@@ -210,7 +210,7 @@ const TaskGraphInner: React.FC<TaskGraphProps> = ({ tasks, isDarkMode }) => {
 			targetPosition: Position.Left,
 			className: `${isDarkMode ? "dark" : ""}`,
 			style: {
-				background: task.completed ? "#4b5563" : priorityColors[task.priority][isDarkMode ? "dark" : "light"],
+				background: task.completed ? "#4b5563" : priorityColors[task.priority || 'medium'][isDarkMode ? "dark" : "light"],
 				color: "#fff",
 				border: "none",
 				borderRadius: "8px",

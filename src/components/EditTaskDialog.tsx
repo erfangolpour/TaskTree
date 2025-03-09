@@ -20,8 +20,8 @@ export const EditTaskDialog: React.FC<EditTaskDialogProps> = ({ open, onOpenChan
   const { updateTask, tasks } = useTaskStore();
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description || '');
-  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(task.priority);
-  const [dueDate, setDueDate] = useState(task.dueDate ? task.dueDate.toISOString().split('T')[0] : '');
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(task.priority || 'medium');
+  const [dueDate, setDueDate] = useState(task.endDate ? task.endDate.toISOString().split('T')[0] : '');
   const [tags, setTags] = useState(task.tags.join(', '));
   const [selectedParents, setSelectedParents] = useState<string[]>(task.parentIds);
   const [parentSearch, setParentSearch] = useState('');
@@ -56,8 +56,8 @@ export const EditTaskDialog: React.FC<EditTaskDialogProps> = ({ open, onOpenChan
     if (open) {
       setTitle(task.title);
       setDescription(task.description || '');
-      setPriority(task.priority);
-      setDueDate(task.dueDate ? task.dueDate.toISOString().split('T')[0] : '');
+      setPriority(task.priority || 'medium');
+      setDueDate(task.endDate ? task.endDate.toISOString().split('T')[0] : '');
       setTags(task.tags.join(', '));
       setSelectedParents(task.parentIds);
       setParentSearch('');
@@ -77,7 +77,7 @@ export const EditTaskDialog: React.FC<EditTaskDialogProps> = ({ open, onOpenChan
       title,
       description: description || undefined,
       priority,
-      dueDate: dueDate ? new Date(dueDate) : undefined,
+      endDate: dueDate ? new Date(dueDate) : undefined,
       tags: tags.split(',').map(tag => tag.trim()).filter(Boolean),
       parentIds: selectedParents,
     });
@@ -101,8 +101,8 @@ export const EditTaskDialog: React.FC<EditTaskDialogProps> = ({ open, onOpenChan
           case 'title':
             return a.title.localeCompare(b.title);
           case 'priority':
-            return ['high', 'medium', 'low'].indexOf(a.priority) - 
-                   ['high', 'medium', 'low'].indexOf(b.priority);
+            return ['high', 'medium', 'low'].indexOf(a.priority || 'medium') -
+                   ['high', 'medium', 'low'].indexOf(b.priority || 'medium');
           case 'date':
             return b.createdAt.getTime() - a.createdAt.getTime();
           default:

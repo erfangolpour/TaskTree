@@ -57,7 +57,7 @@ export const AddTaskDialog: React.FC<AddTaskDialogProps> = ({ open, onOpenChange
       title,
       description,
       priority,
-      dueDate: dueDate || undefined,
+      endDate: dueDate || undefined,
       tags: tags.split(',').map(tag => tag.trim()).filter(Boolean),
       completed: false,
       parentIds: selectedParents,
@@ -85,8 +85,8 @@ export const AddTaskDialog: React.FC<AddTaskDialogProps> = ({ open, onOpenChange
           case 'title':
             return a.title.localeCompare(b.title);
           case 'priority':
-            return ['high', 'medium', 'low'].indexOf(a.priority) - 
-                   ['high', 'medium', 'low'].indexOf(b.priority);
+            return ['high', 'medium', 'low'].indexOf(a.priority || 'medium') - 
+                   ['high', 'medium', 'low'].indexOf(b.priority || 'medium');
           case 'date':
             return b.createdAt.getTime() - a.createdAt.getTime();
           default:
